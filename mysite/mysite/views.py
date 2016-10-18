@@ -29,4 +29,4 @@ def card24(request):
             c3 = cards.cleaned_data['c3']
             c4 = cards.cleaned_data['c4']
             result = get_24_answer([c1, c2, c3, c4])
-    return render(request, 'mysite/card24.html', {'form': card_form, 'result': result})
+    return render(request, 'card24.html', {'form': card_form, 'result': result})
