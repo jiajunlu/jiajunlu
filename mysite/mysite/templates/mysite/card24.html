@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}Card 24 Game{% endblock %}
+
+{% block content %}
+<p>Hello Corey, please enjoy the game.     <i>-- Daddy</i></p>
+<form action="/card24/" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form layout='inline' %}
+    {% buttons submit='OK' %}{% endbuttons %}
+</form>
+<p>
+<ul>
+{% for answer in result|safeseq %}
+    <li>{{ answer }} </li>
+{% endfor %}    
+</ul>
+</p>
+{% endblock %}
+
