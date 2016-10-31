@@ -6,10 +6,24 @@
 
 {% block content %}
 <p>Hello Corey, please enjoy the game.     <i>-- Daddy</i></p>
+<p>Ace is 1, Jack is 11, Queen is 12 and King is 13. All four cards must be used and only once.
+</p>
+<table calss='.table'>
+	<tr>
+{% for card in cards %}
+	<td>
+		<image src='{{ card }}' style="max-height:100%; max-width:100%">
+	</td>
+{% endfor %}
+	</tr>
+</table>
+<p>
+<a href="/card24/" class="btn btn-lg btn-success"><span class="glyphicon"></span>Get Another One</a>
+</p>
 <form action="/card24/" method="post">
     {% csrf_token %}
     {% bootstrap_form form layout='inline' %}
-    {% buttons submit='OK' %}{% endbuttons %}
+    {% buttons submit='Get Answer' %}{% endbuttons %}
 </form>
 <p>
 <ul>
