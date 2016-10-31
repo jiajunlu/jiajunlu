@@ -2,11 +2,14 @@
 
 {% load bootstrap3 %}
 
-{% block title %}Card 24 Game{% endblock %}
+{% block title %}Get 24! Math Poker Game{% endblock %}
 
 {% block content %}
-<p>Hello Corey, please enjoy the game.     <i>-- Daddy</i></p>
-<p>Ace is 1, Jack is 11, Queen is 12 and King is 13. All four cards must be used and only once.
+<p>Hello Corey, enjoy the game!     <i>-- Daddy</i></p>
+<p>Ace is 1, Jack is 11, Queen is 12 and King is 13. Use addition, subtraction,
+division and multiplication with following cards to get number 24.
+All four cards must be used and only once.
+
 </p>
 <table calss='.table'>
 	<tr>
@@ -17,20 +20,29 @@
 {% endfor %}
 	</tr>
 </table>
+<br/>
 <p>
 <a href="/card24/" class="btn btn-lg btn-success"><span class="glyphicon"></span>Get Another One</a>
 </p>
+<p>You can also change the numbers matching your cards.</p>
 <form action="/card24/" method="post">
     {% csrf_token %}
     {% bootstrap_form form layout='inline' %}
     {% buttons submit='Get Answer' %}{% endbuttons %}
 </form>
+{% if input_cards %}
+{{ input_cards }}
 <p>
+{% if result %}
 <ul>
 {% for answer in result|safeseq %}
     <li>{{ answer }} </li>
-{% endfor %}    
+{% endfor %}
 </ul>
+{% else %}
+<p>Sorry, there is no way to get 24.</p>
+{% endif %}
 </p>
+{% endif %}
 {% endblock %}
 

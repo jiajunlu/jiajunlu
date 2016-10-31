@@ -37,20 +37,20 @@ def card24(request):
             c4 = cards.cleaned_data['c4']
             result = get_24_answer([c1, c2, c3, c4])
             input_cards = "Card: " + c1 + ', ' + c2 + ', ' + c3 + ', ' + c4
-
-    cards = []
-    for card in today_cards:
-        c, s = card
-        card_url = "/static/img/" + str(c) + " " + s + ".png"
-        card_url = card_url.lower()
-        card_url = card_url.replace(" ", "_")
-        card_urls.append(card_url)
-        cards.append(c)
-    cards_dict['c1'] = get_card_value(cards[0])
-    cards_dict['c2'] = get_card_value(cards[1])
-    cards_dict['c3'] = get_card_value(cards[2])
-    cards_dict['c4'] = get_card_value(cards[3])
-    card_form = Card24Form(initial=cards_dict)
+    else:
+        cards = []
+        for card in today_cards:
+            c, s = card
+            card_url = "/static/img/" + str(c) + " " + s + ".png"
+            card_url = card_url.lower()
+            card_url = card_url.replace(" ", "_")
+            card_urls.append(card_url)
+            cards.append(c)
+        cards_dict['c1'] = get_card_value(cards[0])
+        cards_dict['c2'] = get_card_value(cards[1])
+        cards_dict['c3'] = get_card_value(cards[2])
+        cards_dict['c4'] = get_card_value(cards[3])
+        card_form = Card24Form(initial=cards_dict)
 
     return render(request, 'card24.html', {'input_cards': input_cards,
                                            'cards': card_urls,
