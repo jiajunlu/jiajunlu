@@ -8,7 +8,31 @@ Created on Thu Oct 13 21:33:38 2016
 """
 
 import itertools
+import random
 from collections import deque
+
+# All possible ranks
+cardranks = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King']
+
+# All possible suits
+cardsuits = ['of Clubs', 'of Diamonds', 'of Hearts', 'of Spades']
+
+cardvalues = {'Ace': '1', '2': '2', '3': '3', '4': '4', '5': '5', '6': '6', '7': '7', '8': '8', '9': '9',
+              '10': '10', 'Jack': '11', 'Queen': '12', 'King': '13'}
+
+
+def get_card_value(cardrank):
+    return cardvalues[cardrank]
+
+
+def random_choose_4_cards():
+    deck = list(itertools.product(cardranks, cardsuits))
+    random.shuffle(deck)
+    four_cards = []
+    for i in range(4):
+        rank, suit = deck[i]
+        four_cards.append((rank, suit))
+    return four_cards
 
 
 def isOper(n):
