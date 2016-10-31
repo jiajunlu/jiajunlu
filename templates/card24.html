@@ -11,15 +11,15 @@ division and multiplication with following cards to get number 24.
 All four cards must be used and only once.
 
 </p>
-<table calss='.table'>
-	<tr>
+<div class="container">
+	<div class="row">
 {% for card in cards %}
-	<td>
-		<image src='{{ card }}' style="max-height:100%; max-width:100%">
-	</td>
+	<div class="col-xs-3">
+		<image src='/static/img/{{ card }}.png' alt='{{ card }}' style="max-height:100%; max-width:100%"/>
+	</div>
 {% endfor %}
-	</tr>
-</table>
+	</div>
+</div>
 <br/>
 <p>
 <a href="/card24/" class="btn btn-lg btn-success"><span class="glyphicon"></span>Get Another One</a>
