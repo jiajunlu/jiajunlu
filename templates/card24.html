@@ -22,13 +22,40 @@ All four cards must be used and only once.
 </div>
 <br/>
 <p>
-<a href="/card24/" class="btn btn-lg btn-success"><span class="glyphicon"></span>Get Another One</a>
+<div class="container">
+	<div class="row">
+		<div class ="col-sm-12">
+			{% if yesnoanswer %}
+			<div class="alert alert-success">{{ yesnoanswer }}</div>
+			{% endif %}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3">
+			<a href="/card24/" class="btn btn-success"><span class="glyphicon"></span>Get another one</a>
+		</div>
+		<div class="col-sm-3">
+			<form action="/card24/" method="post">
+				{% csrf_token %}
+				{{ autoform.field.as_hidden }}
+				<input type="submit" name="yesnoanswer" class="btn btn-info" value="Is there a way?">
+			</form>
+		</div>
+		<div class="col-sm-3">
+			<form action="/card24/" method="post">
+				{% csrf_token %}
+				{{ autoform.field.as_hidden }}
+				<input type="submit" name="fullanswer" class="btn btn-info" value="Get the answer">
+			</form>
+		</div>
+	</div>
+</div>
 </p>
-<p>You can also change the numbers matching your cards.</p>
+<p>Enter the card values to check the result:</p>
 <form action="/card24/" method="post">
     {% csrf_token %}
     {% bootstrap_form form layout='inline' %}
-    {% buttons submit='Get Answer' %}{% endbuttons %}
+    {% buttons submit='Get Answer' name='fullanswer' %}{% endbuttons %}
 </form>
 {% if input_cards %}
 {{ input_cards }}

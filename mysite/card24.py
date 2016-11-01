@@ -20,9 +20,30 @@ cardsuits = ['of Clubs', 'of Diamonds', 'of Hearts', 'of Spades']
 cardvalues = {'Ace': '1', '2': '2', '3': '3', '4': '4', '5': '5', '6': '6', '7': '7', '8': '8', '9': '9',
               '10': '10', 'Jack': '11', 'Queen': '12', 'King': '13'}
 
+suitevalues = {'of Clubs': 0, 'of Diamonds': 1, 'of Hearts': 2, 'of Spades': 3}
+
 
 def get_card_value(cardrank):
     return cardvalues[cardrank]
+
+
+def get_card_index(cardrank, cardsuit):
+    return int(get_card_value(cardrank)) + 13 * int(suitevalues[cardsuit])
+
+
+def get_card_from_index(index):
+    rank = index % 13
+    if rank == 0:
+        rank = 13
+    rank = rank - 1
+    return (cardranks[rank], cardsuits[(index-1)/13])
+
+
+def get_card_value_from_index(index):
+    v = index % 13
+    if v == 0:
+        return 13
+    return v
 
 
 def random_choose_4_cards():
