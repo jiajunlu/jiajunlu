@@ -8,5 +8,6 @@ def deploy():
     local('git commit -m "%s"' % comment)
     local('heroku maintenance:on')
     local('git push heroku master')
+    local('git push origin')
     local('heroku maintenance:off')
 
