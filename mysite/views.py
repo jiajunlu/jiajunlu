@@ -25,7 +25,7 @@ def index(request):
 
 def card24_querycache(question):
     '''
-    question is a list of card values [u'1', u'13', u'12', u'2']
+    question is a list of card values ['1', '13', '12', '2']
     '''
     try:
         question = sorted(question)
@@ -40,16 +40,21 @@ def card24_querycache(question):
 
 
 def card24_savequestion(question, answers):
-    question = sorted(question)
-    if len(answers) > 0:
-        c = Card24Game_SavedAnswer(question=question, incache=True)
-        c.save()
-        for a in answers:
-            a = Card24Game(question=question, answer=a)
-            a.save()
-    else:
-        c = Card24Game_SavedAnswer(question=question, incache=False)
-        c.save()
+    # query cache again
+    try:
+        Card24Game_SavedAnswer.objects.get(question=question)
+        return
+    except Card24Game_SavedAnswer.DoesNotExist:
+        question = sorted(question)
+        if len(answers) > 0:
+            c = Card24Game_SavedAnswer(question=question, incache=True)
+            c.save()
+            for a in answers:
+                a = Card24Game(question=question, answer=a)
+                a.save()
+        else:
+            c = Card24Game_SavedAnswer(question=question, incache=False)
+            c.save()
 
 
 def card24_getdict(c1, c2, c3, c4):
