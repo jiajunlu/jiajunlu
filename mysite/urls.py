@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-import views
+from mysite import views
 
 urlpatterns = [
     url(r'^card24/$', views.card24, name='card24'),

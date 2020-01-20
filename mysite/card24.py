@@ -119,9 +119,11 @@ def check_result(x_one):
                 return False
             if o == '/' and n2 == '0':
                 return False
+            if o == '/' and n2 == '0.0':
+                return False
             temp = eval('(' + n1 + ')' + o + '(' + n2 + ')')
             if o == '/':
-                temp1 = eval('(' + n1 + '.0)' + o + '(' + n2 + '.0)')
+                temp1 = eval('(' + n1 + '*1.0)' + o + '(' + n2 + '*1.0)')
                 if temp1 != temp:
                     return False
             d.append(str(temp))
@@ -161,11 +163,11 @@ def print_result(x_one):
     """
     n1 = x_one[0]
     if isOper(n1):
-        print "Invalid"
+        print ("Invalid")
         return
     n2 = x_one[1]
     if isOper(n2):
-        print "Invalid"
+        print ("Invalid")
         return
 
     d = deque()
@@ -181,7 +183,7 @@ def print_result(x_one):
                 (n2, l2) = d.pop()
                 (n1, l1) = d.pop()
             except IndexError:
-                print "Invalid"
+                print ("Invalid")
                 return
             if l1 == 1 or l1 == 2:  # + or -
                 if l >= 3:      # * or /
@@ -216,7 +218,7 @@ def get_24_answer(cards):
                     continue
                 else:
                     answers.add(pretty_one)
-                    print pretty_one
+                    print (pretty_one)
     return answers
 
 

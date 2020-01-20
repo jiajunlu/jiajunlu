@@ -2,12 +2,12 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from django import forms
-from card24 import get_24_answer
-from card24 import random_choose_4_cards
-from card24 import get_card_value_from_index
-from card24 import get_card_index
-from models import Card24Game
-from models import Card24Game_SavedAnswer
+from mysite.card24 import get_24_answer
+from mysite.card24 import random_choose_4_cards
+from mysite.card24 import get_card_value_from_index
+from mysite.card24 import get_card_index
+from mysite.models import Card24Game
+from mysite.models import Card24Game_SavedAnswer
 
 
 class Card24Form(forms.Form):

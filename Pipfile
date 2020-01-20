@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fabric = "*"
+argparse = "*"
+dj-database-url = "*"
+"django-bootstrap3" = "*"
+ecdsa = "*"
+Django = "*"
+gunicorn = "*"
+paramiko = "*"
+"psycopg2" = "*"
+pycrypto = "*"
+whitenoise = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"
