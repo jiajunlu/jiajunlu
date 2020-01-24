@@ -4,10 +4,8 @@ from django.http import HttpResponse
 from django import forms
 from mysite.card24 import get_24_answer
 from mysite.card24 import random_choose_4_cards
-from mysite.card24 import get_card_value_from_index
+from mysite.card24 import get_card_value
 from mysite.card24 import get_card_index
-from mysite.models import Card24Game
-from mysite.models import Card24Game_SavedAnswer
 
 
 class Card24Form(forms.Form):
@@ -23,40 +21,6 @@ def index(request):
     return HttpResponse("Home")
 
 
-def card24_querycache(question):
-    '''
-    question is a list of card values ['1', '13', '12', '2']
-    '''
-    try:
-        question = sorted(question)
-        incache = Card24Game_SavedAnswer.objects.get(question=question)
-        if incache:
-            queryset = Card24Game.objects.filter(question=question)
-            return (True, [q.answer for q in queryset])
-        else:
-            return (True, [])
-    except Card24Game_SavedAnswer.DoesNotExist:
-        return (False, [])
-
-
-def card24_savequestion(question, answers):
-    # query cache again
-    try:
-        Card24Game_SavedAnswer.objects.get(question=question)
-        return
-    except Card24Game_SavedAnswer.DoesNotExist:
-        question = sorted(question)
-        if len(answers) > 0:
-            c = Card24Game_SavedAnswer(question=question, incache=True)
-            c.save()
-            for a in answers:
-                a = Card24Game(question=question, answer=a)
-                a.save()
-        else:
-            c = Card24Game_SavedAnswer(question=question, incache=False)
-            c.save()
-
-
 def card24_getdict(c1, c2, c3, c4):
     cards_dict = {}
     cards_dict['c1'] = c1
@@ -66,34 +30,13 @@ def card24_getdict(c1, c2, c3, c4):
     return cards_dict
 
 
-def card24_get_answer_from_value(c1, c2, c3, c4):
-    result = []
-    question = sorted([c1, c2, c3, c4])
-    (incache, answers) = card24_querycache(question)
-    if incache:
-        result = answers
-    else:
-        result = get_24_answer(question)
-        card24_savequestion(question, result)
-    return result
-
-
 def card24_get_answer_from_cards(c1, c2, c3, c4):
-    return card24_get_answer_from_value(str(get_card_value_from_index(int(c1))),
-                                        str(get_card_value_from_index(int(c2))),
-                                        str(get_card_value_from_index(int(c3))),
-                                        str(get_card_value_from_index(int(c4))))
+    return get_24_answer([int(c1), int(c2), int(c3), int(c4)])
 
 
 def card24_get_answer(today_cards):
-    cards = []
-    for card in today_cards:
-        c, s = card
-        cards.append(get_card_index(c, s))
-    return card24_get_answer_from_value(str(get_card_value_from_index(int(cards[0]))),
-                                        str(get_card_value_from_index(int(cards[1]))),
-                                        str(get_card_value_from_index(int(cards[2]))),
-                                        str(get_card_value_from_index(int(cards[3]))))
+    question = [get_card_value(c) for c, s in today_cards]
+    return get_24_answer(question)
 
 
 def card24_get_card_urls(today_cards):

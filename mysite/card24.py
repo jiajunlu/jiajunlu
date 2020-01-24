@@ -26,8 +26,8 @@ cardranks = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen
 # All possible suits
 cardsuits = ['of Clubs', 'of Diamonds', 'of Hearts', 'of Spades']
 
-cardvalues = {'Ace': '1', '2': '2', '3': '3', '4': '4', '5': '5', '6': '6', '7': '7', '8': '8', '9': '9',
-              '10': '10', 'Jack': '11', 'Queen': '12', 'King': '13'}
+cardvalues = {'Ace': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9,
+              '10': 10, 'Jack': 11, 'Queen': 12, 'King': 13}
 
 suitevalues = {'of Clubs': 0, 'of Diamonds': 1, 'of Hearts': 2, 'of Spades': 3}
 
@@ -37,7 +37,7 @@ def get_card_value(cardrank):
 
 
 def get_card_index(cardrank, cardsuit):
-    return int(get_card_value(cardrank)) + 13 * int(suitevalues[cardsuit])
+    return get_card_value(cardrank) + 13 * int(suitevalues[cardsuit])
 
 
 def get_card_from_index(index):
@@ -81,7 +81,7 @@ def solve24(num, how, target):
 
 def get_24_answer(cards):
     answers = set()
-    nums = [int(c) for c in cards]
+    nums = [c for c in cards]
     for n in solve24(nums, nums, 24):
         answers.add(n)
     return answers
