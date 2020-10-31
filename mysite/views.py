@@ -82,8 +82,18 @@ def card24(request):
                 input_cards = "Cards: " + c1 + ", " + c2 + ", " + c3 + ", " + c4 + ":"
                 result = card24_get_answer_from_cards(c1, c2, c3, c4)
                 yesnoanswer = ""
+            if request.POST.get("yesnoanswer1"):
+                result = ""
+                if len(result) > 0:
+                    yesnoanswer = "yes"
+                else:
+                    yesnoanswer = "no"
     else:
-        today_cards = random_choose_4_cards()
+        while True:
+            today_cards = random_choose_4_cards()
+            result = card24_get_answer(today_cards)
+            if len(result) > 0:
+                break;
         request.session['cards'] = today_cards
         card_urls = card24_get_card_urls(today_cards)
 
